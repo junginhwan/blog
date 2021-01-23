@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\TodoItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,11 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->prefix('/todo')->name('todo.')->group(function() {
+    Route::get('/', [TodoItemController::class, 'index'])->name('index');
+    Route::post('/', [TodoItemController::class, 'store'])->name('store');
+    Route::put('/', [TodoItemController::class, 'update'])->name('update');
+    Route::delete('/{id}', [TodoItemController::class, 'destroy'])->name('delete');
+});

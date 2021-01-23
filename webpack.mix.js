@@ -17,7 +17,8 @@ mix.js('resources/js/app.js', 'public/js').vue()
         require('tailwindcss'),
         require('autoprefixer'),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require('./webpack.config'))
+    .browserSync('blog.homestead.test');
 
 if (mix.inProduction()) {
     mix.version();
