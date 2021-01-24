@@ -34802,7 +34802,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "flex-none p-2 ml-2 border-2 rounded text-red-600 border-red-600 hover:text-white hover:bg-red-600",
+                      "flex-none p-2 ml-2 border-2 rounded text-red-600 border-red-600 hover:text-white hover:bg-red-600 focus:outline-none",
                     on: {
                       click: function($event) {
                         return _vm.remove(todoItem.id)
