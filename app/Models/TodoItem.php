@@ -12,7 +12,7 @@ class TodoItem extends Model
 
     protected $fillable = ['user_id', 'name', 'completed', 'completed_at'];
 
-    protected static function booted()
+    protected static function boot()
     {
         parent::boot();
         static::addGlobalScope(new UserScope);
