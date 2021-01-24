@@ -34783,11 +34783,11 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "flex-none p-2 ml-4 mr-2 border-2 rounded hover:text-white",
+                      "flex-none p-2 ml-4 mr-2 border-2 rounded hover:text-white focus:outline-none",
                     class: [
                       todoItem.completed
                         ? "text-gray-500 border-gray-500 hover:bg-gray-500"
-                        : "text-green-600 border-green-600 hover:bg-green-600"
+                        : "text-green-600 border-green-600 hover:bg-green-600 "
                     ],
                     on: {
                       click: function($event) {

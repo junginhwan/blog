@@ -97,8 +97,7 @@ class TodoItemController extends Controller
      */
     public function destroy($id)
     {
-        $todoItem = TodoItem::find($id);
-        $todoItem->delete();
+        TodoItem::destroy($id);
 
         return redirect('todo');
     }
