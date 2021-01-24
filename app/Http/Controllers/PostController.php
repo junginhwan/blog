@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-use App\Models\TodoItem;
-use App\Http\Requests\CreateTodoItemRequest;
-use Carbon\Carbon;
+use App\Models\Post;
+use App\Http\Requests\PostRequest;
 
-class TodoItemController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +17,10 @@ class TodoItemController extends Controller
      */
     public function index()
     {
-        $todoItems = TodoItem::orderBy('completed_at', 'ASC')
-            ->orderBy('created_at', 'DESC')
+        $posts = Post::orderBy('created_at', 'DESC')
             ->get();
-        return Inertia::render('Todo/Show', [
-            'todoItems' => $todoItems,
+        return Inertia::render('Post/Index', [
+            'posts' => $posts,
         ]);
     }
 
@@ -33,7 +31,7 @@ class TodoItemController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Post/Create');
     }
 
     /**
@@ -42,14 +40,14 @@ class TodoItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateTodoItemRequest $request)
+    public function store(PostRequest $request)
     {
-        $user = Auth::user();
-        TodoItem::create([
-            'user_id' => $user->id,
-            'name' => $request->input('name'),
-        ]);
-        return redirect('todos');
+        $data = array_merge(
+            $request->only(['subject', 'content', 'enabled']),[
+                'user_id' => Auth::user()->id
+            ]);
+        Post::create($data);
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -71,7 +69,10 @@ class TodoItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return Inertia::render('Post/Edit', [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -81,14 +82,16 @@ class TodoItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(PostRequest $request, $id)
     {
-        $todoItem = TodoItem::find($request->input('id'));
-        $todoItem->completed = !$request->completed;
-        $todoItem->completed_at = ($todoItem->completed) ? Carbon::now() : null;
-        $todoItem->save();
-
-        return redirect('todos');
+        $post = Post::find($id);
+        $post->subject = $request->input('subject');
+        $post->content = $request->input('content');
+        $post->enabled = $request->input('enabled');
+        $post->save();
+        return redirect()->route('posts.edit', [
+            'post' => $post->id,
+        ]);
     }
 
     /**
@@ -99,8 +102,7 @@ class TodoItemController extends Controller
      */
     public function destroy($id)
     {
-        TodoItem::destroy($id);
-
-        return redirect('todos');
+        Post::destroy($id);
+        return redirect('posts');
     }
 }

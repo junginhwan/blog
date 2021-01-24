@@ -33,6 +33,7 @@
         "@babel/helper-compilation-targets": "^7.12.5",
         "@types/browser-sync": "^2.26.1",
         "htmlparser2": "^6.0.0",
+        "marked": "^1.2.7",
         "postcss-loader": "^4.1.0",
         "webpack": "^5.15.0",
         "wrap-ansi": "^7.0.0"

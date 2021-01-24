@@ -28,10 +28,12 @@ export default {
     props: ['todoItems'],
     methods: {
         changeState(todoItem) {
-            this.$inertia.put(route('todo.store'), todoItem);
+            this.$inertia.put(route('todos.update', {
+                id: todoItem.id
+            }), todoItem);
         },
         remove(id) {
-            this.$inertia.delete(route('todo.delete', {
+            this.$inertia.delete(route('todos.destroy', {
                 id
             }));
         }

@@ -21,8 +21,12 @@
                                     Dashboard
                                 </jet-nav-link>
 
-                                <jet-nav-link :href="route('todo.index')" :active="route().current('todo.index')">
+                                <jet-nav-link :href="route('todos.index')" :active="route().current('todos.index')">
                                     Todo
+                                </jet-nav-link>
+
+                                <jet-nav-link :href="route('posts.index')" :active="route().current('posts.index')">
+                                    Post
                                 </jet-nav-link>
                             </div>
                         </div>

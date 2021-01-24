@@ -51,7 +51,7 @@ export default {
     methods: {
         addTodo() {
             if (this.form.name) {
-                this.form.post(route('todo.store'), {
+                this.form.post(route('todos.store'), {
                     errorBag: 'addTodo',
                     preserveScroll: true
                 });
