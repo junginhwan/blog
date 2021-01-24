@@ -18,7 +18,9 @@ class TodoItemController extends Controller
      */
     public function index()
     {
-        $todoItems = TodoItem::orderBy('created_at', 'DESC')->get();
+        $todoItems = TodoItem::orderBy('completed_at', 'ASC')
+            ->orderBy('created_at', 'DESC')
+            ->get();
         return Inertia::render('Todo/Show', [
             'todoItems' => $todoItems,
         ]);
